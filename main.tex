@@ -1,0 +1,33 @@
+% =============================================================================
+% AI & Computer Science — Cheat Sheet Template
+% =============================================================================
+% Usage: Customize title/author below, then add/remove section includes.
+%        Compile with: pdflatex -shell-escape main.tex
+% =============================================================================
+\documentclass[10pt]{article}
+
+\usepackage{style/cheatsheet}
+
+% --- Document Metadata ---
+\title{AI \& Computer Science Cheat Sheet}
+\author{Your Name}
+\date{\today}
+
+% =============================================================================
+\begin{document}
+
+% NOTE: Do NOT use \columnbreak — let multicol flow content vertically
+%       into all columns before going to the next page.
+\begin{multicols*}{5}
+
+% --- Include Sections ---
+% Comment/uncomment to customize your cheat sheet
+\input{sections/example-math}
+
+\input{sections/example-algorithms}
+
+\input{sections/example-ml}
+
+\end{multicols*}
+
+\end{document}

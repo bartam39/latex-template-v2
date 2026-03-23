@@ -1,0 +1,73 @@
+% =============================================================================
+% MACHINE LEARNING & AI
+% =============================================================================
+
+\section{Supervised Learning}
+
+\subsection{Linear Models}
+\formula{Lin. Regression}{$\hat{y} = \mathbf{w}^T\mathbf{x} + b$}
+\formula{Closed Form}{$\mathbf{w}^* = (X^TX)^{-1}X^T\mathbf{y}$}
+\formula{Logistic Reg.}{$P(y{=}1|\mathbf{x}) = \sigma(\mathbf{w}^T\mathbf{x} + b)$}
+\formula{Sigmoid}{$\sigma(z) = \frac{1}{1 + e^{-z}}$}
+
+\subsection{Loss Functions}
+\begin{deflist}
+  \item[MSE] $\frac{1}{n}\sum (y_i - \hat{y}_i)^2$
+  \item[Cross-Ent.] $-\sum y_i \log \hat{y}_i$
+  \item[Hinge] $\max(0, 1 - y \hat{y})$
+\end{deflist}
+
+\subsection{Regularization}
+\formula{L1 (Lasso)}{$\mathcal{L} + \lambda\sum|w_i|$}
+\formula{L2 (Ridge)}{$\mathcal{L} + \lambda\sum w_i^2$}
+
+\section{Neural Networks}
+
+\subsection{Activations}
+\comptable{@{}lX@{}}{
+  Fn & Formula \\
+  ReLU & $\max(0, x)$ \\
+  Leaky & $\max(\alpha x, x)$ \\
+  Softmax & $e^{z_i}/\sum_j e^{z_j}$ \\
+  GELU & $x \cdot \Phi(x)$ \\
+}
+
+\subsection{Backpropagation}
+\begin{defbox}[Chain Rule]
+$\pd{\mathcal{L}}{w_{ij}^{(l)}} = \pd{\mathcal{L}}{a_j^{(l)}} \cdot \pd{a_j^{(l)}}{z_j^{(l)}} \cdot \pd{z_j^{(l)}}{w_{ij}^{(l)}}$
+
+$z^{(l)} = W^{(l)}a^{(l-1)} + b^{(l)}$
+\end{defbox}
+
+\subsection{Architectures}
+\begin{deflist}
+  \item[CNN] Conv$\to$Pool$\to$FC.
+  \item[RNN] $h_t = f(W_h h_{t-1} + W_x x_t)$
+  \item[LSTM] Forget, input, output gates.
+  \item[Transformer] $\text{Attn} = \softmax\!\left(\frac{QK^T}{\sqrt{d_k}}\right)V$
+\end{deflist}
+
+
+\section{Optimization}
+
+\algo{SGD}{$O(1)$/step}{$\theta \gets \theta - \eta \nabla\mathcal{L}$}
+\algo{Momentum}{$O(1)$/step}{$v_t = \gamma v_{t-1} + \eta\nabla\mathcal{L}$}
+\algo{Adam}{$O(1)$/step}{Adaptive LR via $m_t, v_t$ moments.}
+
+\begin{notebox}[Learning Rate]
+High $\to$ diverge. Low $\to$ slow.
+Schedulers: step, cosine, warmup.
+\end{notebox}
+
+\section{Evaluation}
+
+\formula{Accuracy}{$\frac{TP + TN}{TP + TN + FP + FN}$}
+\formula{Precision}{$\frac{TP}{TP + FP}$}
+\formula{Recall}{$\frac{TP}{TP + FN}$}
+\formula{F1}{$2 \cdot \frac{P \cdot R}{P + R}$}
+
+\begin{thmbox}[Bias-Variance]
+$\E[\text{Err}] = \text{Bias}^2 + \text{Var} + \text{Noise}$
+
+High bias $\to$ underfit. High var $\to$ overfit.
+\end{thmbox}

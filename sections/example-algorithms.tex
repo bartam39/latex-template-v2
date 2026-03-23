@@ -1,0 +1,84 @@
+% =============================================================================
+% ALGORITHMS — Complexity, Sorting, Data Structures, Graphs
+% =============================================================================
+
+\section{Complexity}
+
+\subsection{Big-O Notation}
+\begin{deflist}
+  \item[$O(g)$] Upper: $f(n) \leq c \cdot g(n)$
+  \item[$\Omega(g)$] Lower: $f(n) \geq c \cdot g(n)$
+  \item[$\Theta(g)$] Tight: $c_1 g \leq f \leq c_2 g$
+\end{deflist}
+
+\subsection{Common Classes}
+\comptable{@{}lX@{}}{
+  Class & Example \\
+  $O(1)$ & Hash lookup \\
+  $O(\log n)$ & Binary search \\
+  $O(n)$ & Linear scan \\
+  $O(n \log n)$ & Merge sort \\
+  $O(n^2)$ & Bubble sort \\
+  $O(2^n)$ & Subsets \\
+}
+
+\section{Sorting}
+
+\algo{Merge Sort}{$O(n \log n)$}{Stable, divide\&conquer. Space $O(n)$.}
+\algo{Quick Sort}{$O(n \log n)$ avg}{In-place, unstable. Worst $O(n^2)$.}
+\algo{Heap Sort}{$O(n \log n)$}{In-place, unstable. Max-heap.}
+\algo{Counting}{$O(n + k)$}{Stable, non-comparative.}
+
+\begin{algobox}[Merge Sort]
+{\tiny\SetAlgoNoLine
+\SetKwFunction{FMerge}{MSort}
+\KwIn{$A$, $lo$, $hi$}
+\If{$lo < hi$}{
+  $mid \gets \lfloor(lo{+}hi)/2\rfloor$\;
+  \FMerge{$A, lo, mid$}\;
+  \FMerge{$A, mid{+}1, hi$}\;
+  Merge($A, lo, mid, hi$)\;
+}}
+\end{algobox}
+\begin{minted}{python}
+def merge_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    mid = len(arr) // 2
+    L = merge_sort(arr[:mid])
+    R = merge_sort(arr[mid:])
+    return merge(L, R)
+\end{minted}
+
+\section{Data Structures}
+
+\subsection{Time Complexities}
+\comptable{@{}llll@{}}{
+   & Srch & Ins & Del \\
+  Array & $n$ & $1^*$ & $n$ \\
+  Hash & $1$ & $1$ & $1$ \\
+  BST & $\log n$ & $\log n$ & $\log n$ \\
+  List & $n$ & $1$ & $1$ \\
+  Heap & $n$ & $\log n$ & $\log n$ \\
+}
+
+\subsection{Trees}
+\begin{deflist}
+  \item[BST] Left $<$ root $<$ right. Balanced: AVL, RB.
+  \item[Heap] Parent $\geq$ children. At $2i{+}1$, $2i{+}2$.
+  \item[Trie] Prefix tree. Search $O(m)$.
+\end{deflist}
+
+\section{Graph Algorithms}
+
+\algo{BFS}{$O(V + E)$}{Shortest (unweighted). Queue.}
+\algo{DFS}{$O(V + E)$}{Topo sort, cycles. Stack.}
+\algo{Dijkstra}{$O((V{+}E) \log V)$}{Shortest, no neg. weights.}
+\algo{Bellman-Ford}{$O(VE)$}{Handles negative weights.}
+\algo{Kruskal's}{$O(E \log E)$}{MST. Union-find.}
+
+\begin{thmbox}[Shortest Path]
+Dijkstra: greedy, no neg.
+B-F: DP, neg. cycle detection.
+Floyd-Warshall: all-pairs $O(V^3)$.
+\end{thmbox}

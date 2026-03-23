@@ -1,0 +1,46 @@
+% colors.sty — Nord Frost Color Palette
+% Scandinavian minimal: Polar Night, Nord Blue, Aurora accents
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{style/colors}[2026/03/22 Nord Frost Colors]
+
+\RequirePackage{xcolor}
+
+% --- Polar Night (dark base) ---
+\definecolor{primary}{HTML}{2E3440}        % Polar Night — darkest, body text
+\definecolor{primaryLight}{HTML}{3B4252}   % Polar Night 2
+\definecolor{primaryDark}{HTML}{242933}    % Deeper polar night
+
+% --- Heading — distinct from body text ---
+\definecolor{heading}{HTML}{5E81AC}        % Nord Blue — section headers
+
+% --- Secondary — subsection headers, formula labels ---
+\definecolor{secondary}{HTML}{4C566A}      % Dark grey — subsections, labels
+\definecolor{secondaryLight}{HTML}{616E88} % Lighter polar night
+\definecolor{secondaryDark}{HTML}{3B4252}  % Polar Night 2
+
+% --- Accent — complexity badges, highlights, noteboxes ---
+\definecolor{accent}{HTML}{BF616A}         % Aurora Red — warm contrast
+\definecolor{accentLight}{HTML}{D08770}    % Aurora Orange
+
+% --- Neutrals ---
+\colorlet{textPrimary}{primary}            % Alias — use primary directly where possible
+\colorlet{textSecondary}{secondary}        % Alias — use secondary directly where possible
+\definecolor{divider}{HTML}{D8DEE9}        % Snow Storm 1
+\definecolor{surface}{HTML}{ECEFF4}        % Snow Storm 3
+\definecolor{background}{HTML}{FFFFFF}     % White
+
+% --- Semantic ---
+\definecolor{success}{HTML}{A3BE8C}        % Aurora Green
+\definecolor{warning}{HTML}{EBCB8B}        % Aurora Yellow
+\colorlet{error}{accent}                   % Alias — same as accent (Aurora Red)
+\colorlet{info}{heading}                   % Alias — same as heading (Nord Blue)
+
+% --- Code ---
+\definecolor{codeBg}{HTML}{E5E9F0}         % Snow Storm 2
+\definecolor{codeBorder}{HTML}{D8DEE9}     % Snow Storm 1
+\definecolor{codeKeyword}{HTML}{5E81AC}    % Nord Blue
+\definecolor{codeString}{HTML}{A3BE8C}     % Aurora Green
+\definecolor{codeComment}{HTML}{616E88}    % Light polar night
+\definecolor{codeNumber}{HTML}{B48EAD}     % Aurora Purple
+
+\endinput

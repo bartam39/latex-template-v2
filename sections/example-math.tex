@@ -1,0 +1,65 @@
+% =============================================================================
+% MATHEMATICS — Linear Algebra, Calculus, Probability
+% =============================================================================
+
+\section{Linear Algebra}
+
+\subsection{Vector Operations}
+\formula{Dot Product}{$\mathbf{a} \cdot \mathbf{b} = \sum a_i b_i = \norm{\mathbf{a}}\norm{\mathbf{b}}\cos\theta$}
+\formula{Cross Product}{$\norm{\mathbf{a} \times \mathbf{b}} = \norm{\mathbf{a}}\norm{\mathbf{b}}\sin\theta$}
+\formula{Projection}{$\text{proj}_{\mathbf{b}}\mathbf{a} = \frac{\mathbf{a} \cdot \mathbf{b}}{\norm{\mathbf{b}}^2}\mathbf{b}$}
+
+\subsection{Matrix Properties}
+\begin{deflist}
+  \item[Transpose] $(AB)^T = B^T A^T$
+  \item[Inverse] $(AB)^{-1} = B^{-1}A^{-1}$
+  \item[Trace] $\tr(ABC) = \tr(CAB)$
+  \item[Det] $\det(AB) = \det(A)\det(B)$
+\end{deflist}
+
+\subsection{Eigendecomposition}
+\begin{defbox}[Eigenvalue Eq.]
+$A\mathbf{v} = \lambda\mathbf{v}$, \; $\det(A - \lambda I) = 0$
+\end{defbox}
+\formula{SVD}{$A = U\Sigma V^T$}
+
+\section{Calculus}
+
+\subsection{Derivatives}
+\formula{Chain Rule}{$\frac{d}{dx}f(g(x)) = f'(g(x))\, g'(x)$}
+\formula{Product Rule}{$(fg)' = f'g + fg'$}
+\formula{Gradient}{$\nabla f = \left(\pd{f}{x_1}, \ldots, \pd{f}{x_n}\right)$}
+
+\subsection{Common Derivatives}
+\comptable{@{}lX@{}}{
+  $f(x)$ & $f'(x)$ \\
+  $x^n$ & $nx^{n-1}$ \\
+  $e^x$ & $e^x$ \\
+  $\ln x$ & $1/x$ \\
+  $\sin x$ & $\cos x$ \\
+  $\sigma(x)$ & $\sigma(x)(1{-}\sigma(x))$ \\
+  $\tanh x$ & $1 - \tanh^2 x$ \\
+}
+
+\subsection{Integration}
+\formula{By Parts}{$\int u\,dv = uv - \int v\,du$}
+\formula{Gaussian}{$\int_{-\infty}^{\infty} e^{-x^2}dx = \sqrt{\pi}$}
+
+\section{Probability \& Stats}
+
+\subsection{Core Rules}
+\formula{Bayes}{$P(A|B) = \frac{P(B|A)\,P(A)}{P(B)}$}
+\formula{Chain}{$P(A \cap B) = P(A|B)\,P(B)$}
+\formula{Total Prob.}{$P(A) = \sum_i P(A|B_i)\,P(B_i)$}
+
+\subsection{Distributions}
+\begin{deflist}
+  \item[Gaussian] $\mathcal{N}(\mu, \sigma^2){:}$ $\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$
+  \item[Bernoulli] $p^k(1{-}p)^{1-k}$, $k \in \{0,1\}$
+  \item[Poisson] $\frac{\lambda^k e^{-\lambda}}{k!}$
+\end{deflist}
+
+\subsection{Key Identities}
+\formula{Expectation}{$\E[X] = \sum_x x\,P(X{=}x)$}
+\formula{Variance}{$\Var(X) = \E[X^2] - (\E[X])^2$}
+\formula{Covariance}{$\Cov(X,Y) = \E[XY] - \E[X]\E[Y]$}
