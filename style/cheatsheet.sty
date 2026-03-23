@@ -75,7 +75,8 @@
 % COLUMN LAYOUT — 5 columns, vertical flow
 % =============================================================================
 \setlength{\columnsep}{3mm}
-\setlength{\columnseprule}{0pt}
+\setlength{\columnseprule}{0.15pt}
+\def\columnseprulecolor{\color{divider}}
 \raggedcolumns
 
 % Prevent orphans/widows that push content to next page
@@ -113,27 +114,36 @@
 }
 
 % =============================================================================
-% SECTION HEADINGS — Ultra Compact
+% SECTION HEADINGS — Tinted background strips with visual hierarchy
 % =============================================================================
+
+% Helper: tinted strip — \tintstrip{bg-color}{text-color}{font-cmd}{title}
+\newcommand{\tintstrip}[4]{%
+  \noindent\colorbox{#1}{\makebox[\dimexpr\linewidth-2\fboxsep][l]{#3\color{#2}\strut#4}}%
+}
+
+% Section (H1): full-width tinted strip with heading color text
 \titleformat{\section}
-  {\large\bfseries\color{heading}}
+  {\large\bfseries}
   {}
   {0pt}
-  {}
-  [\vspace{-1.5pt}{\color{heading}\hrule height 0.4pt}\vspace{1pt}]
+  {\tintstrip{heading!12}{heading}{\large\bfseries}}
+  []
 
-\titlespacing*{\section}{0pt}{2.5pt}{1pt}
+\titlespacing*{\section}{0pt}{3pt}{1.5pt}
 
+% Subsection (H2): lighter tinted strip with secondary color text
 \titleformat{\subsection}
-  {\normalsize\bfseries\color{secondary}}
+  {\normalsize\bfseries}
   {}
   {0pt}
-  {}
+  {\tintstrip{secondary!8}{secondary}{\normalsize\bfseries}}
 
 \titlespacing*{\subsection}{0pt}{2pt}{0.5pt}
 
+% Subsubsection (H3): bold italic, no decoration
 \titleformat{\subsubsection}
-  {\small\bfseries\color{textPrimary}}
+  {\small\bfseries\itshape\color{textPrimary}}
   {}
   {0pt}
   {}
@@ -236,7 +246,7 @@
     colback=surface,
     colframe=surface,
     boxrule=0pt,
-    arc=0pt, outer arc=0pt,
+    arc=1.5pt, outer arc=1.5pt,
     top=\boxpadtop, bottom=\boxpadbottom, left=\boxpadleft, right=\boxpadright,
     before skip=\boxskip, after skip=\boxskip,
     colbacktitle=surface,
@@ -246,8 +256,11 @@
   },
   accentbox/.style={
     accentboxbase,
-    borderline west={1.5pt}{0pt}{#1},
+    colback=#1!4,
+    colbacktitle=#1!4,
+    borderline west={2pt}{0pt}{#1},
     fonttitle=\scriptsize\bfseries\color{#1},
+    boxed title style={boxrule=0pt, colframe=#1!4, arc=0pt, top=0pt, bottom=0pt, left=0pt, right=0pt},
   },
 }
 
@@ -257,8 +270,8 @@
   colback=codeBg,
   colframe=codeBg,
   boxrule=0pt,
-  borderline west={1pt}{0pt}{secondary},
-  arc=0pt, outer arc=0pt,
+  borderline west={1.5pt}{0pt}{secondary},
+  arc=1.5pt, outer arc=1.5pt,
   top=1pt, bottom=1pt, left=2pt, right=1pt,
   before skip=1pt, after skip=1pt,
   fonttitle=\scriptsize\bfseries\color{secondary},
@@ -279,8 +292,8 @@
 
 % Inline highlight box (single-line, no title)
 \newtcbox{\hlbox}[1][primary]{%
-  on line, arc=1pt, outer arc=1pt,
-  colback=surface, colframe=#1,
+  on line, arc=1.5pt, outer arc=1.5pt,
+  colback=#1!8, colframe=#1!40,
   boxsep=0pt, left=2pt, right=2pt, top=0.5pt, bottom=0.5pt,
   boxrule=0.3pt,
 }
@@ -289,20 +302,22 @@
 % CUSTOM COMMANDS — Core
 % =============================================================================
 
-% Formula: \formula{Name}{$equation$}
+% Formula: \formula{Name}{$equation$} — with subtle leader
 \newcommand{\formula}[2]{%
   \par\noindent
-  {\small\bfseries\color{primary}#1}\hfill{\small #2}\par
+  {\small\bfseries\color{primary}#1}%
+  \,{\color{divider}\leaders\hbox{\tiny\kern0.5pt.\kern0.5pt}\hfill}\,{\small #2}\par
   \vspace{0.5pt}%
 }
 
-% Algorithm entry: \algo{Name}{O(...)}{Description}
+% Algorithm entry: \algo{Name}{O(...)}{Description} — with divider
 \newcommand{\algo}[3]{%
   \par\noindent
   {\small\bfseries\color{primary}#1}%
-  \hfill{\footnotesize\color{accent}#2}\\*
+  \hfill{\tikz[baseline=(b.base)]{\node[fill=accent!10, text=accent, rounded corners=1pt,
+    inner xsep=2pt, inner ysep=0.5pt, font=\footnotesize\bfseries] (b) {#2};}}\\*
   {\footnotesize #3}\par
-  \vspace{0.5pt}%
+  \vspace{0.3pt}{\color{divider}\hrule height 0.15pt}\vspace{0.5pt}%
 }
 
 % Inline code
@@ -326,18 +341,21 @@
   \vspace{0.5pt}%
 }
 
-% Compact table: \comptable{col-spec}{rows}
+% Compact table: \comptable{col-spec}{rows} — with alternating row shading
 % Example: \comptable{@{}llll@{}}{Header1 & H2 & H3 & H4 \\ row...}
 \newcommand{\comptable}[2]{%
   \vspace{0.5pt}%
+  \rowcolors{2}{rowShade}{white}%
   \begin{tabularx}{\linewidth}{#1}
     #2
   \end{tabularx}%
+  \rowcolors{1}{}{}% reset
   \vspace{0.5pt}%
 }
 
 % Colored tag/badge: \tagc{color}{text}
 \RequirePackage{tikz}  % Explicit dependency for tags
+\usetikzlibrary{backgrounds}
 \newcommand{\tagc}[2]{%
   \tikz[baseline=(t.base)]{\node[fill=#1!12, text=#1, rounded corners=1pt,
     inner sep=1pt, font=\tiny\bfseries] (t) {#2};}%
@@ -356,8 +374,11 @@
   {\small\color{primary}\textbf{#1.}}~{\small #2}%
 }
 
-% Complexity badge: \bigO{n \log n}
-\newcommand{\bigO}[1]{{\footnotesize\color{accent}$O(#1)$}}
+% Complexity badge: \bigO{n \log n} — rounded pill
+\newcommand{\bigO}[1]{%
+  \tikz[baseline=(b.base)]{\node[fill=accent!10, text=accent, rounded corners=1pt,
+    inner xsep=2pt, inner ysep=0.5pt, font=\footnotesize] (b) {$O(#1)$};}%
+}
 
 % Separator with label: \labeledsep{text}
 \newcommand{\labeledsep}[1]{%
@@ -401,6 +422,17 @@
 \newcommand{\inner}[2]{\langle#1,#2\rangle}
 \newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}}
 \newcommand{\dd}[2]{\frac{d #1}{d #2}}
+
+% =============================================================================
+% TOP ACCENT BAR — decorative colored strip at page top
+% =============================================================================
+\RequirePackage{tikzpagenodes}
+\AddToHook{shipout/foreground}{%
+  \begin{tikzpicture}[remember picture, overlay]
+    \fill[heading] (current page.north west) rectangle
+      ([yshift=-1.5pt]current page.north east);
+  \end{tikzpicture}%
+}
 
 % =============================================================================
 % HYPERREF CONFIG
