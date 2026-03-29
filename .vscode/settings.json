@@ -1,0 +1,39 @@
+{
+  // ==================================================
+  // LaTeX Workshop — workspace overrides
+  // Global tools/recipes are defined in User settings.
+  // ==================================================
+
+  // Always use main.tex as root — never prompt
+  "latex-workshop.latex.rootFile.doNotPrompt": true,
+
+  // Include minted artefacts in auto-clean
+  "latex-workshop.latex.clean.fileTypes": [
+    "*.aux", "*.bbl", "*.blg", "*.idx", "*.ind", "*.lof", "*.lot",
+    "*.out", "*.toc", "*.acn", "*.acr", "*.alg", "*.glg", "*.glo",
+    "*.gls", "*.fls", "*.log", "*.fdb_latexmk", "*.snm", "*.nav",
+    "*.dvi", "*.synctex.gz", "*.bcf", "*.run.xml", "*.aex"
+  ],
+
+  // Hide build artefacts from Explorer & Search
+  "files.exclude": {
+    "**/.git": true,
+    "_minted-*": true,
+    "*.aux": true,
+    "*.fdb_latexmk": true,
+    "*.fls": true,
+    "*.log": true,
+    "*.synctex.gz": true,
+    "*.out": true,
+    "*.toc": true,
+    "*.aex": true
+  },
+  "search.exclude": {
+    "_minted-*": true,
+    "*.aux": true,
+    "*.fdb_latexmk": true,
+    "*.fls": true,
+    "*.log": true,
+    "*.synctex.gz": true
+  }
+}
