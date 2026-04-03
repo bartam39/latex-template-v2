@@ -14,6 +14,13 @@
 % Font encoding BEFORE font packages
 \RequirePackage[T1]{fontenc}
 
+% Declare missing font substitutions to suppress warnings:
+% - roboto.sty internally requests light CM Roman (l/n) which doesn't exist
+% - minted keywords request bold mono (bx/n) at tiny sizes which doesn't exist
+\DeclareFontShape{T1}{cmr}{l}{n}{<->ssub*cmr/m/n}{}
+\DeclareFontShape{T1}{cmtt}{bx}{n}{<->ssub*cmtt/m/n}{}
+\DeclareFontShape{T1}{cmtt}{bx}{it}{<->ssub*cmtt/m/it}{}
+
 % Font setup
 \IfFileExists{roboto.sty}{%
   \RequirePackage[sfdefault, light]{roboto}%
@@ -70,6 +77,8 @@
 
 % Better typography in narrow columns
 \RaggedRight
+\setlength{\emergencystretch}{1em}     % Extra stretch to avoid underfull hbox in narrow columns
+\AtBeginDocument{\hbadness=10000}      % Suppress underfull hbox warnings (expected in 5-col layout)
 
 % =============================================================================
 % COLUMN LAYOUT — 5 columns, vertical flow
@@ -243,6 +252,7 @@
 \tcbset{
   accentboxbase/.style={
     enhanced,
+    before upper={\hbadness=10000},
     colback=surface,
     colframe=surface,
     boxrule=0pt,
@@ -267,6 +277,7 @@
 % Algorithm/code box (different bg + thinner border)
 \newtcolorbox{algobox}[1][]{%
   enhanced,
+  before upper={\hbadness=10000},
   colback=codeBg,
   colframe=codeBg,
   boxrule=0pt,
@@ -345,6 +356,7 @@
 % Example: \comptable{@{}llll@{}}{Header1 & H2 & H3 & H4 \\ row...}
 \newcommand{\comptable}[2]{%
   \vspace{0.5pt}%
+  \hbadness=10000%
   \rowcolors{2}{rowShade}{white}%
   \begin{tabularx}{\linewidth}{#1}
     #2
@@ -354,8 +366,7 @@
 }
 
 % Colored tag/badge: \tagc{color}{text}
-\RequirePackage{tikz}  % Explicit dependency for tags
-\usetikzlibrary{backgrounds}
+\usetikzlibrary{backgrounds}   % TikZ already loaded by tcolorbox/skins
 \newcommand{\tagc}[2]{%
   \tikz[baseline=(t.base)]{\node[fill=#1!12, text=#1, rounded corners=1pt,
     inner sep=1pt, font=\tiny\bfseries] (t) {#2};}%

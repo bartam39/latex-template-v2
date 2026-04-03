@@ -12,7 +12,8 @@ $(MAIN).pdf: $(MAIN).tex style/*.sty sections/*.tex
 	$(TEX) $(FLAGS) $(MAIN).tex
 
 clean:
-	rm -f $(MAIN).pdf $(MAIN).aux $(MAIN).log $(MAIN).out $(MAIN).toc $(MAIN).fls $(MAIN).fdb_latexmk
+	rm -f $(MAIN).pdf $(MAIN).aux $(MAIN).log $(MAIN).out $(MAIN).toc $(MAIN).fls $(MAIN).fdb_latexmk $(MAIN).synctex.gz
+	rm -rf _minted-$(MAIN)/
 
 watch:
-	latexmk -pvc -pdf -interaction=nonstopmode $(MAIN).tex
+	latexmk -pvc -pdf -interaction=nonstopmode -pdflatex="pdflatex -shell-escape %O %S" $(MAIN).tex

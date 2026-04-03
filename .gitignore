@@ -1,0 +1,14 @@
+# LaTeX build artifacts
+*.aux
+*.log
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
+# Minted (Pygments) cache
+_minted-*/
+
+# Compiled PDF (regenerate with `make`)
+*.pdf

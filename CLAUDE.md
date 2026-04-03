@@ -458,7 +458,6 @@ $\mat{a & b \\ c & d}$   % renders as a pmatrix
 |------|-----|-------|
 | `success` | #A3BE8C | Success boxes, positive tags |
 | `warning` | #EBCB8B | Warning boxes |
-| `error` | (= accent) | Error states |
 | `info` | (= heading) | Info boxes |
 
 ### UI Colors
